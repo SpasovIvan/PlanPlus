@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan+</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <a th:href="@{/admin}">
+            <img th:src="@{/image/logo.png}" alt="Logo"/>
+        </a>
+    </div>
+    <nav>
+        <ul class="navbar">
+            <li><a th:href="@{/admin/people}">Сотрудники и пользователи</a></li>
+            <li><a th:href="@{/admin}">Заявки</a></li>
+            <li><a th:href="@{/admin/products}">Услуги</a></li>
+            <li><a th:href="@{/login}">Вход</a></li>
+        </ul>
+        <button class="menu-toggle" aria-label="Toggle navigation">☰</button>
+        <button class="menu-close" aria-label="Close navigation">✖</button>
+    </nav>
+</header>
+
+<main>
+    <section class="promo">
+        <h1>Сотрудники и пользователи Plan+</h1>
+    </section>
+
+    <section class="orders">
+        <h2>Все сотрудники:</h2><hr/><br/>
+        <div th:if="${admins.isEmpty()}">
+            <p>Пока нет сотрудников.</p>
+        </div>
+        <div th:if="${not admins.isEmpty()}">
+            <ul>
+                <li th:each="admin : ${admins}">
+                    <div class="order-item">
+                        <h3>Сотрудник #<span th:text="${admin.id}"></span></h3>
+                        <p>Почта: <span th:text="${admin.email}"></span></p>
+                    </div><hr/><br/>
+                </li>
+            </ul>
+        </div>
+    </section><br/><br/>
+    <section class="orders">
+        <h2>Все пользователи:</h2><hr/><br/>
+        <div th:if="${users.isEmpty()}">
+            <p>Пока нет пользователей.</p>
+        </div>
+        <div th:if="${not users.isEmpty()}">
+            <ul>
+                <li th:each="user : ${users}">
+                    <div class="order-item">
+                        <h3>Пользователь #<span th:text="${user.id}"></span></h3>
+                        <p>Почта: <span th:text="${user.email}"></span></p>
+                    </div><hr/><br/>
+                </li>
+            </ul>
+        </div>
+    </section>
+</main>
+
+<script th:src="@{/js/menu-toggle.js}"></script>
+
+</body>
+</html>

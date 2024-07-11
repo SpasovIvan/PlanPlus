@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>Каталог - Plan+</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+    <div class="logo">
+        <a th:href="@{/}">
+            <img th:src="@{/image/logo.png}" alt="Logo"/>
+        </a>
+    </div>
+    <nav>
+        <ul class="navbar">
+            <li><a th:href="@{/}">Главная</a></li>
+            <li><a th:href="@{/about}">О нас</a></li>
+            <li><a th:href="@{/catalog}">Каталог услуг</a></li>
+            <li><a th:class="cart" th:href="@{/cart}"><img th:src="@{/image/cart.png}" alt="cart"/><span class="cart-count">0</span></a></li>
+            <li><a th:href="@{/user/my-orders}">Мои заявки</a></li>
+            <li><a th:href="@{/login}">Вход</a></li>
+        </ul>
+        <button class="menu-toggle" aria-label="Toggle navigation">☰</button>
+        <button class="menu-close" aria-label="Close navigation">✖</button>
+    </nav>
+</header>
+
+<main>
+    <section class="promo">
+        <h1>Добро пожаловать в Plan+</h1>
+        <p>Лучшие товары и услуги для вас!</p>
+    </section>
+
+    <section class="products">
+        <h2>Наши товары</h2>
+        <div class="card-container">
+            <div th:each="product : ${products}" class="card">
+                <div class="card-img-container">
+                    <img th:src="@{${product.imageUrl}}" th:alt="${product.name}" class="card-img">
+                </div>
+                <h3 th:text="${product.name}"></h3>
+                <p th:text="${#strings.abbreviate(product.description, 20)}">Описание...</p>
+                <h2 th:text="'Цена: ' + ${product.price} + ' руб.'"></h2>
+                <button class="open-modal" th:data-name="${product.name}" th:data-description="${product.description}">Подробнее</button>
+                <button class="add-to-cart" th:data-id="${product.id}">Добавить в корзину</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h2>Отзывы клиентов</h2>
+        <div class="testimonial">
+            <p>Я долгое время искала идею для бизнеса, чтобы получить соцконтракт. Наткнулась на эту компанию и не пожалела! В нем есть все, что нужно для успешного старта: финансовые расчеты, описание бизнес-модели, даже маркетинговая стратегия. Благодаря этому плану, я быстро подготовила все документы и получила одобрение на соцконтракт! Большое спасибо за такой качественный продукт!</p>
+            <span>- Анна, г.Новосибирск</span>
+        </div>
+        <div class="testimonial">
+            <p>Я открыла свое дело по пошиву одежды с помощью соцконтракта.  Без готового бизнес-плана, думаю,  было бы намного сложнее! План плюс помог мне не только получить соцконтракт, но и грамотно спланировать развитие моего бизнеса.  Я  уже  вижу  результаты!  С  этим  планом  можно  быстро  и  уверенно  начать  свое  дело.</p>
+            <span>- Екатерина, г. Искитим</span>
+        </div>
+        <div class="testimonial">
+            <p>Я  очень  рада,  что  решила  заказать бизнес-план.  Долго  искала  что-то  по-настоящему  качественное  и  профессиональное.  Этот  план  позволил  мне  уверенно  представить  свою  идею  коммисии  и  получить  одобрение  на  соцконтракт.  Теперь  я  запускаю  свое  дело  и  уверена  в  успехе!</p>
+            <span>- Наталья, г. Екатеринбург</span>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="social-links">
+        <a href="https://vk.com" target="_blank">VK</a>
+        <a href="https://facebook.com" target="_blank">Facebook</a>
+        <a href="https://instagram.com" target="_blank">Instagram</a>
+    </div>
+    <p>&copy; <span id="current-year"></span> План+. Все права защищены.</p>
+</footer>
+
+<!-- Модальное окно -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="modal-title">Название продукта</h2>
+        <p id="modal-description">Полное описание продукта...</p>
+    </div>
+</div>
+
+<script th:src="@{/js/menu-toggle.js}"></script>
+<script th:src="@{/js/current-year.js}"></script>
+<script th:src="@{/js/modal.js}"></script>
+<script th:src="@{/js/cart.js}"></script>
+</body>
+</html>

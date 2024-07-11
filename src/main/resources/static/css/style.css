@@ -1,0 +1,453 @@
+/* Стили для контейнера карточек */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    justify-items: center; /* Центрирует карточки по горизонтали */
+}
+
+/* Основные стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Andale Mono', monospace, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    height: 90px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #111111;
+    position: relative;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 70px;
+    margin-right: 10px;
+}
+
+nav {
+    position: relative;
+}
+
+.navbar {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.navbar li {
+    text-align: center;
+}
+
+.navbar li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    transition: color 0.3s;
+    position: relative;
+}
+
+.navbar li a:hover,
+.navbar li a.active {
+    color: #0074d9;
+    position: relative;
+}
+
+.navbar li a:hover::after,
+.navbar li a.active::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #0074d9;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+}
+
+.cart {
+    position: relative;
+}
+
+.cart img {
+    transition: 0.2s;
+    height: 20px;
+    position: relative;
+}
+
+.cart-count {
+    position: absolute;
+    bottom: -6px;
+    right: -7px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+}
+
+.menu-toggle {
+    color: white;
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.menu-toggle:active {
+    color: #0074d9;
+}
+
+.menu-close {
+    color: white;
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1100;
+}
+
+body.menu-open .menu-close {
+    display: block;
+}
+
+main {
+    flex: 1;
+    padding: 20px 40px;
+}
+
+.promo {
+    text-align: center;
+    background-color: #f5f5f5;
+    padding: 50px 20px;
+    margin-bottom: 20px;
+}
+
+.promo h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.promo p {
+    font-size: 18px;
+}
+
+.products {
+    margin-bottom: 40px;
+}
+
+.products h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/*.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}*/
+
+.card {
+    max-width: 700px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(33.333% - 20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+}
+
+.card-img-container {
+    width: 100%;
+    padding-top: 75%; /* соотношение сторон 4:3 */
+    position: relative;
+}
+
+.card-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card h3 {
+    font-size: 22px;
+    margin: 10px 0;
+}
+
+.card p {
+    font-size: 16px;
+    color: #555;
+}
+
+.testimonials {
+    text-align: center;
+    background-color: #f5f5f5;
+    padding: 50px 20px;
+    margin-bottom: 20px;
+}
+
+.testimonials h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.testimonial {
+    margin-bottom: 20px;
+}
+
+.testimonial p {
+    font-size: 18px;
+    color: #555;
+}
+
+.testimonial span {
+    display: block;
+    font-size: 16px;
+    color: #777;
+    margin-top: 10px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #ddd;
+}
+
+footer .social-links a {
+    margin: 0 20px;
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s;
+}
+
+footer .social-links a:hover {
+    color: #007bff;
+}
+
+footer p {
+    margin-top: 10px;
+}
+
+/* Стили для мобильных устройств */
+@media (max-width: 768px) {
+    .navbar {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        transition: left 0.3s ease;
+        padding-top: 80px;
+        z-index: 1000;
+        align-items: center;
+    }
+
+    body.menu-open .navbar {
+        left: 0;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .menu-close {
+        display: none;
+    }
+
+    body.menu-open .menu-close {
+        display: block;
+    }
+
+    .navbar li {
+        text-align: center;
+    }
+
+    .navbar li a {
+        color: white;
+        padding: 10px;
+        border-bottom: 1px solid #333;
+        font-size: 30px;
+        position: relative;
+    }
+
+    .navbar li a img {
+        height: 30px;
+        position: relative;
+    }
+
+    .navbar li a .cart-count {
+        position: absolute;
+        bottom: 8px;
+        right: 7px;
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 20px;
+        line-height: 20px;
+    }
+
+    .card-container {
+        flex-direction: column;
+    }
+
+    .card {
+        flex: 1 1 100%;
+    }
+}
+
+/* Стили для формы входа и регистрации */
+.login-page,
+.registration-page {
+    max-width: 500px;
+    min-width: min-content;
+    background-color: #f8f9fa;
+}
+
+.form-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #111111;
+}
+
+form label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    color: #333333;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+form button[type="submit"] {
+    background-color: #0074d9;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+form button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+form .error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+form .link {
+    color: #0074d9;
+    text-decoration: underline;
+    text-align: center;
+    display: block;
+    margin-top: 20px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    position: relative;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}

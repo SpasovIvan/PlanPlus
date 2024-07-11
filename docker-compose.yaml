@@ -5,8 +5,8 @@ services:
     image: 'postgres:16.2'
     container_name: 'planplus'
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: planplus
+      POSTGRES_USER: "ivanspasov"
+      POSTGRES_PASSWORD: "psvmJkjk4922"
+      POSTGRES_DB: "planplus"

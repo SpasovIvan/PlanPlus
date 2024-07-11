@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Plan+</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:class="form-container">
+        <form th:action="@{/login}" th:method="POST" th:class="login-page">
+            <h1>Авторизация</h1>
+            <div>
+                <label th:for="email">Email:
+                    <input th:type="email" th:id="email" th:name="email" placeholder="mail@mail.com" th:required/>
+                </label>
+            </div>
+            <div>
+                <label th:for="password">Пароль:
+                    <input th:type="password" th:id="password" th:name="password" placeholder="Введите пароль" th:required/>
+                </label>
+            </div>
+            <div>
+                <button th:type="submit">Войти</button>
+            </div>
+            <div th:if="${param.error}" th:class="error-message">
+                Неверное имя пользователя или пароль.
+            </div>
+            <!--<div th:if="${param.success}" th:class="error-message">
+            </div>-->
+            <div th:class="link">
+                <a th:href="@{/registration}">Регистрация</a>
+            </div>
+        </form>
+    </div>
+
+<footer>
+    <div class="social-links">
+        <a href="https://vk.com" target="_blank">VK</a>
+        <a href="https://facebook.com" target="_blank">Facebook</a>
+        <a href="https://instagram.com" target="_blank">Instagram</a>
+    </div>
+    <p>&copy; <span id="current-year"></span> План+. Все права защищены.</p>
+</footer>
+
+<script th:src="@{/js/current-year.js}"></script>
+
+</body>
+</html>

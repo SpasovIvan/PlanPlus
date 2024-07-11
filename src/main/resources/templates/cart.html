@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина - Plan+</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+    <div class="logo">
+        <a th:href="@{/}">
+            <img th:src="@{/image/logo.png}" alt="Logo"/>
+        </a>
+    </div>
+    <nav>
+        <ul class="navbar">
+            <li><a th:href="@{/}">Главная</a></li>
+            <li><a th:href="@{/about}">О нас</a></li>
+            <li><a th:href="@{/catalog}">Каталог услуг</a></li>
+            <li><a th:class="cart" th:href="@{/cart}"><img th:src="@{/image/cart.png}" alt="cart"/><span class="cart-count">0</span></a></li>
+            <li><a th:href="@{/user/my-orders}">Мои заявки</a></li>
+            <li><a th:href="@{/login}">Вход</a></li>
+        </ul>
+        <button class="menu-toggle" aria-label="Toggle navigation">☰</button>
+        <button class="menu-close" aria-label="Close navigation">✖</button>
+    </nav>
+</header>
+
+<main>
+    <section class="cart">
+        <h2>Ваша корзина</h2>
+        <div th:if="${cart.products.isEmpty()}">
+            <p>Ваша корзина пуста.</p>
+        </div>
+        <div th:if="${not cart.products.isEmpty()}">
+            <ul>
+                <li th:each="product : ${cart.products}">
+                    <div class="cart-item">
+                        <div class="cart-item-details">
+                            <h3 th:text="${product.name}"></h3>
+                            <p th:text="${product.description}"></p>
+                            <p th:text="'Цена: ' + ${product.price} + ' руб.'"></p>
+                            <hr/>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <form th:action="@{/cart/checkout}" method="post">
+                <label for="phoneNumber">Введите номер телефона:</label>
+                <input type="text" id="phoneNumber" name="phoneNumber" required minlength="11" maxlength="12">
+                <p>Рекомендуется сначала <a th:href="@{/login}">авторизироваться</a>/<a th:href="registration">зарегистрироваться</a>, чтобы отслеживать статус заявки.</p><br>
+                <button type="submit">Оформить заказ</button>
+            </form>
+            <form th:action="@{/cart/clear}" method="post" style="margin-top: 20px;">
+                <button type="submit">Очистить корзину</button>
+            </form>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="social-links">
+        <a href="https://vk.com" target="_blank">VK</a>
+        <a href="https://facebook.com" target="_blank">Facebook</a>
+        <a href="https://instagram.com" target="_blank">Instagram</a>
+    </div>
+    <p>&copy; <span id="current-year"></span> План+. Все права защищены.</p>
+</footer>
+
+<script th:src="@{/js/menu-toggle.js}"></script>
+<script th:src="@{/js/current-year.js}"></script>
+<script th:src="@{/js/cart.js}"></script>
+</body>
+</html>

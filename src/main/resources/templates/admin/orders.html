@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan+</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <a th:href="@{/admin}">
+            <img th:src="@{/image/logo.png}" alt="Logo"/>
+        </a>
+    </div>
+    <nav>
+        <ul class="navbar">
+            <li><a th:href="@{/admin/people}">Сотрудники и пользователи</a></li>
+            <li><a th:href="@{/admin}">Заявки</a></li>
+            <li><a th:href="@{/admin/products}">Услуги</a></li>
+            <li><a th:href="@{/login}">Вход</a></li>
+        </ul>
+        <button class="menu-toggle" aria-label="Toggle navigation">☰</button>
+        <button class="menu-close" aria-label="Close navigation">✖</button>
+    </nav>
+</header>
+
+<main>
+    <section class="promo">
+        <h1>Заявки</h1>
+    </section>
+
+    <section class="orders">
+        <h2>Мои заявки</h2>
+        <div th:if="${orders.isEmpty()}">
+            <p>У вас пока нет заявок.</p>
+        </div>
+        <div th:if="${not orders.isEmpty()}">
+            <ul>
+                <li th:each="order : ${orders}">
+                    <div class="order-item">
+                        <h3>Заявка #<span th:text="${order.id}"></span></h3>
+                        <p>Статус:
+                            <span th:switch="${order.status.name()}">
+                                <span th:case="'NOT_PROCESSED'" class="status-not-processed">Не обработано</span>
+                                <span th:case="'CANCELED'" class="status-canceled">Отменено</span>
+                                <span th:case="'IN_PROGRESS'" class="status-in-progress">В процессе</span>
+                                <span th:case="'FINISHED'" class="status-finished">Выполнено</span>
+                                <span th:case="*">Неизвестный статус</span>
+                            </span>
+                        </p>
+                        <p>Номер телефона: <span th:text="${order.phoneNumber}"></span></p>
+                        <p>Дата и время: <span th:text="${order.timestamp}" class="order-timestamp"></span></p>
+                        <p>Дней прошло с начала формирования заявки: <span th:text="${order.timeframe.toDays()}" class="order-timestamp"></span></p>
+                        <div class="order-products">
+                            <h4>Товары:</h4>
+                            <ul>
+                                <li th:each="product : ${order.products}">
+                                    <div class="product-card">
+                                        <div class="product-details">
+                                            <h5 th:text="${product.name}"></h5>
+                                            <p th:text="'Цена: ' + ${product.price} + ' руб.'"></p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <form action="/admin/changeStatus" method="post">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                            <input type="hidden" name="orderId" th:value="${order.id}" />
+                            <select name="newStatus">
+                                <option value="NOT_PROCESSED">Не обработано</option>
+                                <option value="IN_PROGRESS">В процессе</option>
+                                <option value="FINISHED">Выполнено</option>
+                                <option value="CANCELED">Отменено</option>
+                            </select>
+                            <button type="submit">Изменить статус</button>
+                        </form>
+
+
+
+
+                        <form action="/admin/deleteOrder" method="post" th:action="@{/admin/deleteOrder}">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                            <input type="hidden" name="orderId" th:value="${order.id}" />
+                            <button type="submit">Удалить заявку</button>
+                        </form>
+
+
+                    </div><hr/><br/>
+                </li>
+            </ul>
+        </div>
+    </section>
+</main>
+
+
+<script th:src="@{/js/menu-toggle.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration - Plan+</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:class="form-container">
+        <form th:action="@{/registration}" th:method="POST" th:object="${user}" th:class="registration-page" onsubmit="return validatePasswords()">
+            <h1>Регистрация</h1>
+            <div>
+                <label for="name">Введите ФИО:</label>
+                <input type="text" id="name" name="name" th:field="*{name}" placeholder="Иванов Иван Иванович" required/>
+                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:class="error-message"></div>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" th:field="*{email}" placeholder="mail@mail.com" required/>
+                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:class="error-message"></div>
+            </div>
+            <div>
+                <label for="password">Введите пароль:</label>
+                <input type="password" id="password" name="password" th:field="*{password}" placeholder="Пароль" required/>
+                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:class="error-message"></div>
+            </div>
+            <div>
+                <label for="confirmPassword">Повторите пароль:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Подтвердите пароль" required/>
+                <div id="passwordError" th:class="error-message"></div>
+            </div>
+            <div>
+                <button type="submit">Зарегистрироваться</button>
+            </div>
+            <div th:if="${param.error}" th:class="error-message"></div>
+            <div th:class="link">
+                <a th:href="@{/login}">Авторизация</a>
+            </div>
+        </form>
+    </div>
+
+<footer>
+    <div class="social-links">
+        <a href="https://vk.com" target="_blank">VK</a>
+        <a href="https://facebook.com" target="_blank">Facebook</a>
+        <a href="https://instagram.com" target="_blank">Instagram</a>
+    </div>
+    <p>&copy; <span id="current-year"></span> План+. Все права защищены.</p>
+</footer>
+
+<script th:src="@{/js/current-year.js}"></script>
+<script th:src="@{/js/validate-passwords.js}"></script>
+
+</body>
+</html>
